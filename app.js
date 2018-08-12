@@ -56,9 +56,22 @@ MongoClient.connect('mongodb://localhost:27017/movie_listing_app', function(err,
     });
 
     //////////////////////// route to submit the form to add a new movie.
-    app.post('/add', function(req, res) {
+    app.post('/add', function(req, res, next) {
 
-        //
+        const title = req.body.title;
+        const year = req.body.year;
+        const imdb = req.body.imdb;
+
+        // left a form field blank.
+        if(title === '' || year === '' || imdb === '') {
+            next(Error('Please complete all form fields'));
+        }
+
+        // output to page.
+        res.send("Title: " + title + "<br>Year: " + year + "IMDB: " + imdb);     
+
+        // add to mongo movie_listing_app database - movies table.
+        
 
     });
 
@@ -67,6 +80,8 @@ MongoClient.connect('mongodb://localhost:27017/movie_listing_app', function(err,
         res.sendStatus('404');
     });
 
+    // use the errorHandler function if there are errors.
+    app.use(errorHandler);
 
     // Start up Express server.
     const server = app.listen(3000, function() {
