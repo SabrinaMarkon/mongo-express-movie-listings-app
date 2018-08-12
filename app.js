@@ -67,11 +67,15 @@ MongoClient.connect('mongodb://localhost:27017/movie_listing_app', function(err,
             next(Error('Please complete all form fields'));
         }
 
-        // output to page.
-        res.send("Title: " + title + "<br>Year: " + year + "IMDB: " + imdb);     
-
         // add to mongo movie_listing_app database - movies table.
-        
+        db.collection('movies').insertOne({'title': title, 'year': year, 'imdb': imdb}, function(err, r) {
+            
+            // test for errors.
+            assert.equal(null, err);
+
+            // show success message.
+            res.send("Successfully added:<br>Title: " + title + "<br>Year: " + year + "<br>IMDB: " + imdb + "<br><br><a href='/'>RETURN</a>");
+        });
 
     });
 
