@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,6 +7,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
-    
+    <ul>
+        {% for movie in movies %}
+            <li><a href="http://www.imdb.com/title/{{ movie.imdb }}" target="_blank">{{ movie.title }}, {{ movie.year }}</a></li>
+        {% else %}
+            <li>No movies here yet!</li>
+        {% endfor %}
+    </ul>
+    <p><a href="/add">ADD NEW MOVIE</a></p>
 </body>
-</html>"
+</html>

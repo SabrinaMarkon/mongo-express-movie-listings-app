@@ -2,7 +2,7 @@
 const express = require('express'),
         app = express(),
         engines = require('consolidate'),
-        bodyParser = require('bodyparser'),
+        bodyParser = require('body-parser'),
         assert = require('assert'),
         MongoClient = require('mongodb').MongoClient;
 
@@ -19,8 +19,8 @@ function errorHandler(err, req, res, next) {
     res.status(500).render('error_template', {error: err});
 }
 
-// connect to mongodb video database.
-MongoClient.connect('mongodb://localhost:27017/video', function(err, db) {
+// connect to mongodb movie_listing_app database.
+MongoClient.connect('mongodb://localhost:27017/movie_listing_app', function(err, db) {
     
     // make sure no error.
     assert.equal(null, err);
@@ -51,7 +51,7 @@ MongoClient.connect('mongodb://localhost:27017/video', function(err, db) {
     app.get('/add', function(req, res) {
 
         // load the add.html template. Don't need to pass variables now (simple version currently).
-        res.render('add');
+        res.render('add', '');
 
     });
 
@@ -74,7 +74,7 @@ MongoClient.connect('mongodb://localhost:27017/video', function(err, db) {
         // post
         const port = server.address().port;
         console.log('Express server listening on port %s.', port);
-        
+
     });
 
 });
