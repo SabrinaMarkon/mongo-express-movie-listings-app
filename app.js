@@ -58,9 +58,11 @@ MongoClient.connect('mongodb://localhost:27017/movie_listing_app', function(err,
     //////////////////////// route to submit the form to add a new movie.
     app.post('/add', function(req, res, next) {
 
-        const title = req.body.title;
-        const year = req.body.year;
-        const imdb = req.body.imdb;
+        // const title = req.body.title;
+        // const year = req.body.year;
+        // const imdb = req.body.imdb;
+        // Object Destructuring instead!
+        const {title, year, imdb} = req.body;
 
         // left a form field blank.
         if(title === '' || year === '' || imdb === '') {
@@ -74,7 +76,9 @@ MongoClient.connect('mongodb://localhost:27017/movie_listing_app', function(err,
             assert.equal(null, err);
 
             // show success message.
-            res.send("Successfully added:<br>Title: " + title + "<br>Year: " + year + "<br>IMDB: " + imdb + "<br><br><a href='/'>RETURN</a>");
+            // res.send("Successfully added:<br>Title: " + title + "<br>Year: " + year + "<br>IMDB: " + imdb + "<br><br><a href='/'>RETURN</a>");
+            // Template literals instead!
+            res.send(`Successfully added:<br>Title: ${title}<br>Year: ${year}<br>IMDB: ${imdb}<br><br><a href='/'>RETURN</a>`);
         });
 
     });
